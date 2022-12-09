@@ -44,14 +44,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User showUserById(long id) {
-        Optional<User> user = userDao.showUserById(id);
-        return user.orElseThrow(() -> new RuntimeException("User by id = " + id + " not found"));
+    public User getUserById(long id) {
+        return userDao.getUserById(id);
     }
 
     @Override
     public void updateUserInfo(int id, User user) {
-        User userToBeUpdated = showUserById(id);
+        User userToBeUpdated = getUserById(id);
         userToBeUpdated.setName(user.getName());
         userToBeUpdated.setSurname(user.getSurname());
         userToBeUpdated.setAge(user.getAge());
