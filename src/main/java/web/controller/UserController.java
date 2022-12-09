@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping("/")
 public class UserController {
 
+    @Autowired
     UserService userService;
 
-    @Autowired
     protected UserController(UserService userService) {
         this.userService = userService;
     }
@@ -42,9 +42,9 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("edit/{id}")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.showUserById(id));
+    @GetMapping("edit")
+    public String edit(Model model, @RequestParam int id) {
+        model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
 
@@ -55,8 +55,8 @@ public class UserController {
         return "redirect:/";
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") long id) {
+    @DeleteMapping("/")
+    public String deleteUser(@RequestParam long id) {
         userService.deleteUser(id);
         return "redirect:/";
     }
