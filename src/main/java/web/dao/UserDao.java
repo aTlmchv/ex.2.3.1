@@ -14,7 +14,7 @@ public interface UserDao {
 
     List <User> getAllUsers ();
 
-    Optional<User> showUserById(long id);
+    User getUserById(long id);
 
     void updateUserInfo(int id, User user);
 }
