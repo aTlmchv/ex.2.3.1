@@ -21,32 +21,26 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void deleteUser(long id) {
-        entityManager.remove(showUserById(id).orElseThrow(() -> new RuntimeException("User by id = " + id + " not found")));;
+        entityManager.remove(getUserById(id));;
     }
 
     @Override
     public void updateUser(User user) {
-
         entityManager.merge(user);
     }
 
     @Override
     public List<User> getAllUsers() {
-
         return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 
     @Override
-    public Optional<User> showUserById(long id) {
-
-        return Optional.ofNullable(entityManager.find(User.class, id));
+    public User getUserById(long id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override
     public void updateUserInfo(int id, User user) {
-        User updatedUser = entityManager.find(User.class, id);
-        updatedUser.setName(user.getName());
-        updatedUser.setSurname(user.getSurname());
-        updatedUser.setAge(user.getAge());
+        entityManager.merge(user);
     }
 }
